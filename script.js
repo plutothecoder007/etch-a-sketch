@@ -10,6 +10,9 @@ container.style.alignItems = "flex-start"; // Align items to the start of the co
 const btn = document.querySelector(".button");      //Refers to button as a 'btn' variable.
 btn.addEventListener("click", makeNewGrid)
 
+const cleanButton = document.querySelector("#clean");
+cleanButton.addEventListener("click", cleanCanvas);
+
 
 createDivGrid(16);      //Sets grid size to 16x16 by default.
 
@@ -28,12 +31,25 @@ function createDivGrid (num) {
         div.style.boxSizing = "border-box"; // Ensure padding and border do not affect width/height
         div.style.flexGrow = "1";
 
-
         container.appendChild(div);
 
-        div.addEventListener("mouseenter", changeBgColour)
+        // Add mouse events for painting effect
+        div.addEventListener("mousedown", () => {
+            isPainting = true;
+            div.style.backgroundColor = "black"; // Paint immediately on click
+        });
+
+        div.addEventListener("mouseenter", () => {
+            if (isPainting) {
+                div.style.backgroundColor = "black"; // Paint on hover if mouse is held down
+            }
+        });
     }
-    
+
+    // Reset painting flag when mouse is released anywhere on the page
+    document.addEventListener("mouseup", () => {
+        isPainting = false;
+    });
 }
 
 
@@ -59,3 +75,11 @@ function makeNewGrid () {
 function changeBgColour(event) {
     event.target.style.backgroundColor = "black"; 
 }
+
+function cleanCanvas () {   
+    const cells = container.querySelectorAll("div"); // Select all child divs in the container
+    cells.forEach(cell => {
+        cell.style.backgroundColor = ""; // Reset the background color of each cell
+    })
+}
+
