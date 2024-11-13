@@ -6,9 +6,12 @@ container.style.flexWrap = "wrap";
 container.style.justifyContent = "flex-start"; // Align items to the start of the row
 container.style.alignItems = "flex-start"; // Align items to the start of the column
 
+
 const btn = document.querySelector(".button");      //Refers to button as a 'btn' variable.
 btn.addEventListener("click", makeNewGrid)
 
+
+createDivGrid(16);      //Sets grid size to 16x16 by default.
 
 function createDivGrid (num) {
     let cellSize = 700 / num;       //Calculates the cell size so they all fit within the container.
@@ -17,15 +20,20 @@ function createDivGrid (num) {
 
     for (let i = 0; i < num * num; i++) {
         const div = document.createElement("div");
+        div.id = "box";
         div.style.display = "flex";
         div.style.width = `${cellSize}px`;
         div.style.height = `${cellSize}px`;
         div.style.border = "0.5px solid black";
         div.style.boxSizing = "border-box"; // Ensure padding and border do not affect width/height
         div.style.flexGrow = "1";
-        container.appendChild(div);
-    }
 
+
+        container.appendChild(div);
+
+        div.addEventListener("mouseenter", changeBgColour)
+    }
+    
 }
 
 
@@ -47,3 +55,7 @@ function makeNewGrid () {
     createDivGrid(size);
 }
 
+// Function to change the background color of the div when clicked
+function changeBgColour(event) {
+    event.target.style.backgroundColor = "black"; 
+}
