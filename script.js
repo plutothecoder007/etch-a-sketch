@@ -13,11 +13,15 @@ btn.addEventListener("click", makeNewGrid)
 const cleanButton = document.querySelector("#clean");
 cleanButton.addEventListener("click", cleanCanvas);
 
+let isPainting = false; 
+
 
 createDivGrid(16);      //Sets grid size to 16x16 by default.
 
 function createDivGrid (num) {
     let cellSize = 700 / num;       //Calculates the cell size so they all fit within the container.
+
+      
 
     container.innerHTML = ""        //Cleans the container to avoid appending to the existing grid
 
@@ -36,12 +40,24 @@ function createDivGrid (num) {
         // Add mouse events for painting effect
         div.addEventListener("mousedown", () => {
             isPainting = true;
-            div.style.backgroundColor = "black"; // Paint immediately on click
+            let r = Math.floor(Math.random() * 255);
+            let g = Math.floor(Math.random() * 255);
+            let b = Math.floor(Math.random() * 255);
+            
+            let rgb = [r, g, b];
+            let randomColour = `rgb(${r}, ${g}, ${b})`;
+            div.style.backgroundColor = randomColour; // Paint immediately on click
         });
 
         div.addEventListener("mouseenter", () => {
             if (isPainting) {
-                div.style.backgroundColor = "black"; // Paint on hover if mouse is held down
+                let r = Math.floor(Math.random() * 255);
+                let g = Math.floor(Math.random() * 255);
+                let b = Math.floor(Math.random() * 255);
+                
+                let rgb = [r, g, b];
+                let randomColour = `rgb(${r}, ${g}, ${b})`;
+                div.style.backgroundColor = randomColour; // Paint on hover if mouse is held down
             }
         });
     }
@@ -82,4 +98,8 @@ function cleanCanvas () {
         cell.style.backgroundColor = ""; // Reset the background color of each cell
     })
 }
+
+
+
+
 

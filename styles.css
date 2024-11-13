@@ -3,8 +3,13 @@ body {
     flex-direction: column;
 }
 
-h1 {
+header {
     text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 20px;
+    background-color: antiquewhite;
+    margin: 10px;
 }
 
 .container {
